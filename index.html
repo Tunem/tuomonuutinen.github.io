@@ -24,13 +24,18 @@
     <div class="container">
       <nav class="nav" id="nav">
         <a href="#hero" class="nav__logo">Portfolio</a>
-        <ul class="nav__links">
+        <ul class="nav__links" id="nav__links">
           <li><a href="#about" class="nav-link">Tietoa</a></li>
           <li><a href="#experience" class="nav-link">Kokemus</a></li>
           <li><a href="#skills" class="nav-link">Taidot</a></li>
           <li><a href="projects.html" class="nav-link">Projektit</a></li>
           <li><a href="#contact" class="nav-link">Yhteystiedot</a></li>
         </ul>
+        <button class="nav__hamburger" id="nav__hamburger" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </nav>
     </div>
   </header>
@@ -110,6 +115,14 @@
           
           <!-- KOULUTUS -->
           <h3 style="color: var(--color-accent); margin-bottom: var(--space-lg); font-size: 1.5rem;">📚 Koulutus</h3>
+
+          <div style="margin-bottom: var(--space-xl); padding-bottom: var(--space-xl); border-bottom: 1px solid var(--color-border);">
+            <h4>Media-alan ammattitutkinto</h4>
+            <p class="text-muted" style="margin-top: 0.25rem;">Riveria ammattikoulu | 2026</p>
+            <p style="margin-top: var(--space-md); color: var(--color-muted); line-height: 1.6;">
+              Työvoimakoulutus kurssi, jossa opiskelin Verkkopalvelun toteuttaminen tutkinnon osaa. Keskityttiin opettelemaan tekoälyjen käyttämistä kehitystejtävissä.
+            </p>
+          </div>
           
           <div style="margin-bottom: var(--space-xl); padding-bottom: var(--space-xl); border-bottom: 1px solid var(--color-border);">
             <h4>Tradenomi - Tietojen käsittely</h4>
@@ -321,6 +334,23 @@
   </footer>
 
   <script>
+    // Hamburger Menu Toggle
+    const hamburger = document.getElementById('nav__hamburger');
+    const navLinks = document.getElementById('nav__links');
+ 
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+ 
+    // Sulje menu kun linkki klikataan
+    document.querySelectorAll('.nav__links a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+      });
+    });
+
     // Smooth scroll with offset for fixed nav
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
@@ -339,7 +369,7 @@
 
     // Nav scroll effect + Active nav link on scroll
     const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
+    const activeNavLinks = document.querySelectorAll('.nav-links');
     let lastScroll = 0;
  
     window.addEventListener('scroll', () => {
@@ -362,7 +392,7 @@
         }
       });
  
-      navLinks.forEach(link => {
+      activeNavLinks.forEach(link => {
         link.classList.remove('active');
         if (link.getAttribute('href') === `#${current}`) {
           link.classList.add('active');
